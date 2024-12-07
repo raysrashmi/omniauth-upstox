@@ -24,8 +24,8 @@ Gem::Specification.new do |spec|
   spec.bindir = "exe"
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  spec.add_dependency 'omniauth', '~> 2.1'
-  spec.add_dependency 'omniauth-oauth2', '~> 1.8'
+  spec.add_dependency "omniauth", "~> 2.1"
+  spec.add_dependency "omniauth-oauth2", "~> 1.8"
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

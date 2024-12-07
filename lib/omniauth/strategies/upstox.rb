@@ -1,23 +1,33 @@
-require 'json'
-require 'omniauth-oauth2'
+# frozen_string_literal: true
+
+# This file implements the Upstox strategy for OmniAuth.
+#
+# The Upstox strategy enables OAuth2 authentication with the Upstox API.
+# It configures the necessary endpoints, defines the methods for fetching
+# and parsing user information, and handles the construction of authorization
+# and token parameters.
+#
+# Example Usage:
+#   Add the strategy to your OmniAuth initializer:
+#   Rails.application.config.middleware.use OmniAuth::Builder do
+#     provider :upstox, ENV['UPSTOX_CLIENT_ID'], ENV['UPSTOX_CLIENT_SECRET']
+#   end
+#
+# For more information, see:
+#   https://docs.upstox.com/
+#   https://github.com/omniauth/omniauthrequire "json"
+
+require "omniauth-oauth2"
 
 module OmniAuth
   module Strategies
     class Upstox < OmniAuth::Strategies::OAuth2
-
       option :name, "upstox"
-
-      # This is where you pass the options you would pass when
-      # initializing your consumer from the OAuth gem.
       option :client_options, {
-        :site => 'https://api.upstox.com',
-        :authorize_url => 'https://api.upstox.com/v2/login/authorization/dialog',
-        :token_url => 'https://api.upstox.com/v2/login/authorization/token'
+        site: "https://api.upstox.com",
+        authorize_url: "https://api.upstox.com/v2/login/authorization/dialog",
+        token_url: "https://api.upstox.com/v2/login/authorization/token"
       }
-
-      def request_phase
-        super
-      end
 
       def callback_url
         options[:redirect_uri] || (full_host + callback_path)
@@ -25,12 +35,8 @@ module OmniAuth
 
       def authorize_params
         super.tap do |params|
-          params[:response_type] = 'code'
+          params[:response_type] = "code"
         end
-      end
-
-      def callback_phase
-        super
       end
 
       def token_params
@@ -41,23 +47,23 @@ module OmniAuth
         end
       end
 
-      uid{ request.params['user_id'] }
+      uid { request.params["user_id"] }
 
       info do
         {
-          :name => raw_info['name'],
-          :location => raw_info['city']
+          name: raw_info["name"],
+          location: raw_info["city"]
         }
       end
 
       extra do
         {
-          'raw_info' => raw_info
+          "raw_info" => raw_info
         }
       end
 
       def raw_info
-        @raw_info ||= access_token.get('/v2/user/profile').parsed
+        @raw_info ||= access_token.get("/v2/user/profile").parsed
       end
 
       def email
