@@ -1,39 +1,45 @@
-# Omniauth::Upstox
+# OmniAuth Upstox Strategy
 
-TODO: Delete this and the text below, and describe your gem
+[![Gem Version](https://badge.fury.io/rb/omniauth-upstox.svg)](https://rubygems.org/gems/omniauth-upstox)
+[![Build Status](https://github.com/raysrashmi/omniauth-upstox/actions/workflows/test.yml/badge.svg)](https://github.com/raysrashmi/omniauth-upstox/actions)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/omniauth/upstox`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem provides an [OmniAuth](https://github.com/omniauth/omniauth) strategy for authenticating with [Upstox](https://upstox.com) using OAuth2. It allows your Ruby on Rails or Rack-based application to interact with Upstox's APIs for authentication.
+To use it, you'll need to sign up for an OAuth2 Client ID and Client Secret
+on the
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
 
-Install the gem and add to the application's Gemfile by executing:
+```ruby
+gem 'omniauth-upstox'
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+## Basic Usage
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+use OmniAuth::Builder do
+  provider :upstox, ENV['UPSTOX_CLIENT_ID'], ENV['UPSTOX_CLIENT_SECRET'], redirect_uri: 'http://localhost:3001/auth/upstox/callback'
+end
+```
 
-## Usage
 
-TODO: Write usage instructions here
+## Basic Usage Rails
 
-## Development
+In `config/initializers/omniauth.rb`
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/raysrashmi/omniauth-upstox. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/raysrashmi/omniauth-upstox/blob/master/CODE_OF_CONDUCT.md).
+```ruby
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider :upstox, ENV['UPSTOX_CLIENT_ID'], ENV['UPSTOX_CLIENT_SECRET'], redirect_uri: 'http://localhost:3001/auth/upstox/callback'
+  end
+```
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+Copyright (c) 2011 by Rashmi Yadav
 
-## Code of Conduct
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-Everyone interacting in the Omniauth::Upstox project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/raysrashmi/omniauth-upstox/blob/master/CODE_OF_CONDUCT.md).
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
