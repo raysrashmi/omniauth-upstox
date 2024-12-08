@@ -1,21 +1,6 @@
 # frozen_string_literal: true
 
 # This file implements the Upstox strategy for OmniAuth.
-#
-# The Upstox strategy enables OAuth2 authentication with the Upstox API.
-# It configures the necessary endpoints, defines the methods for fetching
-# and parsing user information, and handles the construction of authorization
-# and token parameters.
-#
-# Example Usage:
-#   Add the strategy to your OmniAuth initializer:
-#   Rails.application.config.middleware.use OmniAuth::Builder do
-#     provider :upstox, ENV['UPSTOX_CLIENT_ID'], ENV['UPSTOX_CLIENT_SECRET']
-#   end
-#
-# For more information, see:
-#   https://docs.upstox.com/
-#   https://github.com/omniauth/omniauthrequire "json"
 
 require "omniauth-oauth2"
 
